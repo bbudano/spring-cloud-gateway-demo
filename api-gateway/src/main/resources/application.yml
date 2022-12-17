@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: hello-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/hello
+            - Host=**.example.com
+          filters:
+            - SetPath=/hello-world
+            - AddRequestParameter=delay, 10

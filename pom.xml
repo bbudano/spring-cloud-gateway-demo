@@ -10,6 +10,7 @@
 
     <modules>
         <module>api-gateway</module>
+        <module>example-service</module>
     </modules>
 
 </project>
