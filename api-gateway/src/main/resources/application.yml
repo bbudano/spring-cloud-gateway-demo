@@ -9,4 +9,12 @@ spring:
             - Host=**.example.com
           filters:
             - SetPath=/hello-world
+
+        - id: delayed-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/delay
+            - Host=**.example.com
+          filters:
+            - SetPath=/delayed
             - AddRequestParameter=delay, 10
