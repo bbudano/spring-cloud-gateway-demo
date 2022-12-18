@@ -18,3 +18,7 @@ spring:
           filters:
             - SetPath=/delayed
             - AddRequestParameter=delay, 10
+            - name: CircuitBreaker
+              args:
+                name: customCircuitBreaker
+                fallbackUri: forward:/fallback
