@@ -1,3 +1,8 @@
+management:
+  health:
+    redis:
+      enabled: true
+
 spring:
   cloud:
     gateway:
@@ -22,3 +27,15 @@ spring:
               args:
                 name: customCircuitBreaker
                 fallbackUri: forward:/fallback
+
+        - id: rate-limited-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/uuid
+            - Host=**.example.com
+          filters:
+            - SetPath=/random-uuid
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 2

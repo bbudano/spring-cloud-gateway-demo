@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class ExampleController {
 
@@ -15,6 +17,11 @@ public class ExampleController {
     @GetMapping("/hello-world")
     String hello() {
         return "Hello, World!";
+    }
+
+    @GetMapping("/random-uuid")
+    String uuid() {
+        return UUID.randomUUID().toString();
     }
 
     @GetMapping("/delayed")
