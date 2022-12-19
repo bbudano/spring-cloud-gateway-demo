@@ -39,3 +39,21 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 2
                 redis-rate-limiter.burstCapacity: 2
+
+        - id: weighted-route-1
+          uri: http://localhost:8081
+          predicates:
+            - Path=/now
+            - Host=**.example.com
+            - Weight=myGroup, 4
+          filters:
+            - SetPath=/timestamp
+
+        - id: weighted-route-2
+          uri: http://localhost:8081
+          predicates:
+            - Path=/now
+            - Host=**.example.com
+            - Weight=myGroup, 4
+          filters:
+            - SetPath=/timestamp2

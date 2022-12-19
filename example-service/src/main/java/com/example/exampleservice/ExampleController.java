@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+import java.util.Base64;
 import java.util.UUID;
 
 @RestController
@@ -19,11 +21,6 @@ public class ExampleController {
         return "Hello, World!";
     }
 
-    @GetMapping("/random-uuid")
-    String uuid() {
-        return UUID.randomUUID().toString();
-    }
-
     @GetMapping("/delayed")
     ResponseEntity<Void> delayed(@RequestParam Long delay) {
         try {
@@ -33,6 +30,21 @@ public class ExampleController {
         }
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/random-uuid")
+    String uuid() {
+        return UUID.randomUUID().toString();
+    }
+
+    @GetMapping("/timestamp")
+    String timestamp() {
+        return "timestamp: " + Instant.now().toEpochMilli();
+    }
+
+    @GetMapping("/timestamp2")
+    String timestamp2() {
+        return "timestamp2: " + Instant.now().toEpochMilli();
     }
 
 }
