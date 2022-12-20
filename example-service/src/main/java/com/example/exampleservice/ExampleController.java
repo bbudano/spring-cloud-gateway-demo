@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -46,8 +47,8 @@ public class ExampleController {
     }
 
     @PostMapping(value = "/anything", produces = MediaType.APPLICATION_JSON_VALUE)
-    Object anything(@RequestBody Object anything) {
-        return anything;
+    Object anything(@RequestBody Map<String, Object> request) {
+        return request;
     }
 
 }
