@@ -8,7 +8,10 @@ import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
 import org.springframework.cloud.client.circuitbreaker.Customizer;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
@@ -31,6 +34,21 @@ public class ApiGatewayApplication {
     @Bean
     public KeyResolver keyResolver() {
         return exchange -> Mono.just("1");
+    }
+
+    @Bean
+    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+        // This route takes a String as a request body, trims it and passes it
+        // wrapped in a SampleRequest object to the /anything endpoint
+        return builder.routes()
+                .route("modify-request-body-route", predicateSpec -> predicateSpec
+                        .path("/modify-body")
+                        .filters(filter -> filter
+                                .modifyRequestBody(String.class, SampleRequest.class, MediaType.APPLICATION_JSON_VALUE,
+                                        (serverWebExchange, s) -> Mono.just(new SampleRequest(s.trim())))
+                                .setPath("/anything"))
+                        .uri("http://localhost:8081"))
+                .build();
     }
 
 }

@@ -2,13 +2,11 @@ package com.example.exampleservice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.Base64;
 import java.util.UUID;
 
 @RestController
@@ -45,6 +43,11 @@ public class ExampleController {
     @GetMapping("/timestamp2")
     String timestamp2() {
         return "timestamp2: " + Instant.now().toEpochMilli();
+    }
+
+    @PostMapping(value = "/anything", produces = MediaType.APPLICATION_JSON_VALUE)
+    Object anything(@RequestBody Object anything) {
+        return anything;
     }
 
 }
