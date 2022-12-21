@@ -46,7 +46,7 @@ public class ExampleController {
         return "timestamp2: " + Instant.now().toEpochMilli();
     }
 
-    @PostMapping(value = "/anything", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/anything")
     Object anything(@RequestBody Map<String, Object> request) {
         return request;
     }
