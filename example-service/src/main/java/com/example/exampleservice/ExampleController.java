@@ -2,7 +2,6 @@ package com.example.exampleservice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +46,7 @@ public class ExampleController {
     }
 
     @PostMapping(value = "/anything")
-    Object anything(@RequestBody Map<String, Object> request) {
+    Map<String, Object> anything(@RequestBody Map<String, Object> request) {
         return request;
     }
 
